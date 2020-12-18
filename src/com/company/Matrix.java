@@ -8,67 +8,46 @@ public class Matrix {
 
     //constructor
     public Matrix(int Length, int Height) {
+        if (length <= 0 || height <= 0) {
+             throw new IllegalArgumentException("Wrong matrix");
+        }
         this.length = Length;
         this.height = Height;
         this.matrix = new int[this.length][this.height];
     }
 
     public Matrix(int[][] Matrix) {
+        if (length <= 0 || height <= 0) {
+             throw new IllegalArgumentException("Wrong matrix");
+        }
         this.length = Matrix.length;
         this.height = Matrix[0].length;
-        this.matrix = Matrix;
+        int[][] temp = Matrix;
+        this.matrix = temp;
     }
 
     //methods of class
 
     public int getElement(int Length, int Height) {
-        try {
             return this.matrix[Length][Height];
-        } catch (Exception e) {
-            System.out.println(e);
-            return -1;
-        }
     }
 
     public void setElement(int Length, int Height, int value) {
-        try {
             this.matrix[Length][Height] = value;
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public String getSize() {
-        try {
-            return String.valueOf(this.length + "x" + this.height);
-        } catch (Exception e) {
-            System.out.println(e);
-            return String.valueOf(-1);
-        }
     }
 
     public int getLength() {
-        try {
             return this.length;
-        } catch (Exception e) {
-            System.out.println(e);
-            return -1;
-        }
     }
 
     public int getHeight() {
-        try {
             return this.height;
-        } catch (Exception e) {
-            System.out.println(e);
-            return -1;
-        }
     }
 
     public static Matrix add(Matrix first, Matrix second) throws IllegalArgumentException {
         if (first.length != second.length ||
                 first.height != second.height) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Matriсes are not same");
         } else {
             Matrix tmpMatrix = new Matrix(first.getLength(), second.getHeight());
             for (int i = 0; i < tmpMatrix.height; i++) {
@@ -83,7 +62,7 @@ public class Matrix {
     public static Matrix subtract(Matrix first, Matrix second) throws IllegalArgumentException {
         if (first.length != second.length ||
                 first.height != second.height)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Matriсes are not same");
         else {
             Matrix tmpMatrix = new Matrix(first.length, second.height);
             for (int i = 0; i < tmpMatrix.height; i++) {
@@ -97,7 +76,7 @@ public class Matrix {
 
     public static Matrix multiply(Matrix first, Matrix second) throws IllegalArgumentException {
         if (first.height != second.length)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("matrices do not satisfy the multiplication condition");
         else {
             int n = first.length;
             int m = second.height;
@@ -116,8 +95,8 @@ public class Matrix {
         }
     }
 
+    
     public Matrix scalarMultiplication(Matrix matrix, int scalar) {
-        try {
             Matrix tmpMatrix = new Matrix(matrix.length, matrix.height);
             for (int i = 0; i < tmpMatrix.height; i++) {
                 for (int j = 0; j < tmpMatrix.length; j++) {
@@ -125,10 +104,6 @@ public class Matrix {
                 }
             }
             return tmpMatrix;
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
     }
 
     public double matrixDeterminant(Matrix matrix) {
@@ -164,7 +139,6 @@ public class Matrix {
             return (result);
         } catch (Exception e) {
             System.out.println(e);
-            return -1;
         }
     }
 
@@ -180,7 +154,6 @@ public class Matrix {
         }
 
         Matrix second = (Matrix) obj;
-        try {
 
             if ((length != second.length) || (height != second.height)) {
                 return false;
@@ -194,12 +167,6 @@ public class Matrix {
                 }
             }
             return comparison;
-        } catch (Exception e) {
-            System.out.println(e);
-            return false;
-        }
-
-
     }
 
     @Override
@@ -212,5 +179,10 @@ public class Matrix {
             str = str + System.lineSeparator();
         }
         return str;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(matrix);
     }
 }
