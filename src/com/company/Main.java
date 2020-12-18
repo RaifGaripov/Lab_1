@@ -31,7 +31,7 @@ public class Main {
         System.out.println("Матрица:\n" + testFirst);
         //index with 0
         System.out.println("Элемент (2,2):\n" + testFirst.getElement(1, 1));
-        System.out.println("Размерность:\n" + testFirst.getSize());
+        System.out.println("Размерность:\n" + testFirst.getLength() + "x" + testFirst.getHeight());
         System.out.println("Сумма:\n" + Matrix.add(subtractFirst, subtractSecond));
         System.out.println("Разность:\n" + Matrix.subtract(subtractFirst, subtractSecond));
 
