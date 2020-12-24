@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Arrays;
+
 public class Matrix {
 
     //objects of class
@@ -8,7 +10,7 @@ public class Matrix {
 
     //constructor
     public Matrix(int Length, int Height) {
-        if (length <= 0 || height <= 0) {
+        if (Length <= 0 || Height <= 0) {
              throw new IllegalArgumentException("Wrong matrix");
         }
         this.length = Length;
@@ -17,12 +19,15 @@ public class Matrix {
     }
 
     public Matrix(int[][] Matrix) {
-        if (length <= 0 || height <= 0) {
+        if (Matrix.length <= 0 || Matrix[0].length <= 0 ||
+                (Matrix.length == 1 && Matrix[0].length != 1) ||
+                Matrix[0].length == 1 && Matrix.length != 1) {
              throw new IllegalArgumentException("Wrong matrix");
         }
         this.length = Matrix.length;
         this.height = Matrix[0].length;
-        int[][] temp = Matrix;
+        int[][] temp = new int[Matrix.length][Matrix[0].length];
+        temp = Matrix;
         this.matrix = temp;
     }
 
@@ -97,19 +102,19 @@ public class Matrix {
 
     
     public Matrix scalarMultiplication(Matrix matrix, int scalar) {
-            Matrix tmpMatrix = new Matrix(matrix.length, matrix.height);
-            for (int i = 0; i < tmpMatrix.height; i++) {
-                for (int j = 0; j < tmpMatrix.length; j++) {
-                    tmpMatrix.setElement(i, j, tmpMatrix.getElement(i, j) * scalar);
+        Matrix tmpMatrix = new Matrix(matrix.getLength(), matrix.getHeight());
+        for (int i = 0; i < tmpMatrix.getHeight(); i++) {
+                for (int j = 0; j < tmpMatrix.getLength(); j++) {
+                    tmpMatrix.setElement(i, j, matrix.getElement(i, j) * scalar);
                 }
             }
             return tmpMatrix;
     }
 
     public double matrixDeterminant(Matrix matrix) {
-        try {
-            double result = 0;
 
+            double result = 0;
+        try {
             if (matrix.length == 1) {
                 result = matrix.getElement(0, 0);
                 return (result);
@@ -135,11 +140,12 @@ public class Matrix {
                 }
 
                 result += matrix.getElement(0, i) * Math.pow(-1, i) * matrixDeterminant(temp);
+
             }
-            return (result);
-        } catch (Exception e) {
+        }catch (Exception e) {
             System.out.println(e);
         }
+        return (result);
     }
 
     @Override

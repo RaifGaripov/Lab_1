@@ -38,6 +38,6 @@ public class Main {
         System.out.println("Умножение:\n" + Matrix.multiply(testFirst, testSecond));
         System.out.println("Умножение матрицы на 5:\n" + subtractFirst.scalarMultiplication(subtractFirst, 5));
         System.out.println("Определитель матрицы:\n" + subtractFirst.matrixDeterminant(subtractFirst));
-        System.out.println(" матриц:\n" + subtractFirst.equals(subtractSecond));
+        System.out.println("Сравнение матриц:\n" + subtractFirst.equals(subtractSecond));
     }
 }
